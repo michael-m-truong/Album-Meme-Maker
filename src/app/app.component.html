@@ -1,35 +1,40 @@
-<div class="container">
-    <h1>Image Overlay App</h1>
-    <input type="file" accept="image/*" (change)="handleFileChange($event)">
-    <br>
-    <button (click)="downloadMeme()">Download Image</button>
-    <br>
-    <br>
-  <button (click)="toggleMoveable()">Toggle Moveable</button>
-  <br>
-    <div id="meme" #meme class="image-container">
-      <img class="base-image" src="assets/background.png" alt="background">
-      <ngx-moveable
-      *ngIf="moveableVisible && imageUrl"
-            [target]="targetRef"
-           [draggable]="draggable"
-           [throttleDrag]="throttleDrag"
-           [edgeDraggable]="edgeDraggable"
-          [startDragRotate]="startDragRotate"
-            [throttleDragRotate]="throttleDragRotate"
-           [scalable]="scalable"
-           [keepRatio]="keepRatio"
-            [throttleScale]="throttleScale"
-            [renderDirections]="renderDirections"
-            [rotatable]="rotatable"
-            [throttleRotate]="throttleRotate"
-            [rotationPosition]="rotationPosition"
-           (drag)="onDrag($event)"
-            (scale)="onScale($event)"
-            (rotate)="onRotate($event)"
-        ></ngx-moveable>
-        <img [src]="imageUrl" alt="Uploaded Image" #targetRef [ngClass]="{'overlay-image': imageUrl}">
-      <img class="foreground-image" src="assets/foreground.png" alt="foreground">
-    </div>
+<div class="container mx-auto px-4 py-8 content-center text-center">
+  <h1 class="text-3xl mb-4">Image Overlay App</h1>
+  <input type="file" accept="image/*" (change)="handleFileChange($event)" class="mb-4">
+  <button (click)="downloadMeme()" class="bg-blue-500 text-white px-4 py-2 rounded-lg mb-4">Download Image</button>
+  <button (click)="toggleMoveable()" class="bg-blue-500 text-white px-4 py-2 rounded-lg mb-4">Toggle Moveable</button>
+
+  <!-- add "aspect-w-1 aspect-h-1" if want square -->
+  <div id="meme" #meme class="relative content-center text-center max-w-[800px] mx-auto">
+
+      <!-- Background image positioned at the bottom -->
+    <img class="base-image relative top-0 left-0 w-full h-full pointer-events-none object-cover" src="assets/background.png" alt="background">
+
+      <!-- Uploaded image positioned between background and foreground -->
+      <ngx-moveable *ngIf="moveableVisible && imageUrl"
+                    [target]="targetRef"
+                    [draggable]="draggable"
+                    [throttleDrag]="throttleDrag"
+                    [edgeDraggable]="edgeDraggable"
+                    [startDragRotate]="startDragRotate"
+                    [throttleDragRotate]="throttleDragRotate"
+                    [scalable]="scalable"
+                    [keepRatio]="keepRatio"
+                    [throttleScale]="throttleScale"
+                    [renderDirections]="renderDirections"
+                    [rotatable]="rotatable"
+                    [throttleRotate]="throttleRotate"
+                    [rotationPosition]="rotationPosition"
+                    (drag)="onDrag($event)"
+                    (scale)="onScale($event)"
+                    (rotate)="onRotate($event)"
+      ></ngx-moveable>
+      
+      <!-- Uploaded image positioned between background and foreground -->
+      <img [src]="imageUrl" alt="Uploaded Image" #targetRef class="overlay-image absolute top-0 left-0 w-32 h-32 object-contain" [class.hidden]="!imageUrl">
+    
+      <!-- Foreground image positioned on top -->
+      <img class="absolute top-0 left-0 w-full h-full pointer-events-none" src="assets/foreground.png" alt="foreground">
+    
   </div>
-  
+</div>

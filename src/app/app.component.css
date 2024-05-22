@@ -1,4 +1,4 @@
-.container {
+/* .container {
     text-align: center;
     margin-top: 20px;
   }
@@ -19,7 +19,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }
+  } */
 
   .foreground-image {
     pointer-events: none; /* Disable pointer events for the foreground image */
@@ -28,11 +28,10 @@
 .base-image {
     pointer-events: none; /* Disable pointer events for the foreground image */
 }
-  
+/*   
   .overlay-image {
     width: 100px;
     height: 100px;
     object-fit: contain;
-    /* z-index: 9999; */
-  }
+  } */
   

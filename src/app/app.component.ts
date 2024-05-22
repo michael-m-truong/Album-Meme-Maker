@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from "@angular/core";
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import html2canvas from "html2canvas";
 import { NgxMoveableComponent } from "ngx-moveable";
 
@@ -20,6 +20,9 @@ export class AppComponent {
     @ViewChild(NgxMoveableComponent) moveable!: NgxMoveableComponent;
     @ViewChild('meme', { static: false }) memeElement!: ElementRef;
 
+    constructor(private cdr: ChangeDetectorRef) {}
+
+
     onFileSelected(event: any) {
         const file: File = event.target.files[0];
         const reader = new FileReader();
@@ -39,17 +42,30 @@ export class AppComponent {
     }
 
     downloadMeme() {
+        // Temporarily hide the moveable component
+        const wasMoveableVisible = this.moveableVisible;
+        this.moveableVisible = false;
+      
+        // Trigger change detection to update the DOM
+        this.cdr.detectChanges();
+      
+        // After the DOM is updated, take the screenshot
         const scale = window.matchMedia('(max-width: 767px)').matches ? 2 : 1;
         html2canvas(this.memeElement.nativeElement, { scale }).then(canvas => {
-            const dataURL = canvas.toDataURL('image/png');
-            const downloadLink = document.createElement('a');
-            downloadLink.href = dataURL;
-            downloadLink.download = 'overlay_image.png';
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+          const dataURL = canvas.toDataURL('image/png');
+          const downloadLink = document.createElement('a');
+          downloadLink.href = dataURL;
+          downloadLink.download = 'overlay_image.png';
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+      
+          // Restore the visibility of the moveable component
+          //this.moveableVisible = wasMoveableVisible;
+          //this.cdr.detectChanges();  // Ensure changes are reflected in the DOM
         });
-    }
+      }
+      
 
     scalable: any = true;
     keepRatio: any = true;
@@ -71,6 +87,7 @@ export class AppComponent {
     toggleMoveable() {
         this.moveableVisible = !this.moveableVisible;
       }
+    
 }
 
 

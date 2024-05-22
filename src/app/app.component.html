@@ -8,7 +8,7 @@
   <div id="meme" #meme class="relative content-center text-center max-w-[800px] mx-auto">
 
       <!-- Background image positioned at the bottom -->
-    <img class="base-image relative top-0 left-0 w-full h-full pointer-events-none object-cover" src="assets/background.png" alt="background">
+    <img class="base-image relative top-0 left-0 w-full h-full" src="assets/background.png" alt="background">
 
       <!-- Uploaded image positioned between background and foreground -->
       <ngx-moveable *ngIf="moveableVisible && imageUrl"
@@ -34,7 +34,7 @@
       <img [src]="imageUrl" alt="Uploaded Image" #targetRef class="overlay-image absolute top-0 left-0 w-32 h-32 object-contain" [class.hidden]="!imageUrl">
     
       <!-- Foreground image positioned on top -->
-      <img class="absolute top-0 left-0 w-full h-full pointer-events-none" src="assets/foreground.png" alt="foreground">
+      <img class="foreground-image absolute top-0 left-0 w-full h-full" src="assets/foreground.png" alt="foreground">
     
   </div>
 </div>

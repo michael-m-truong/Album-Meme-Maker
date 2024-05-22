@@ -50,7 +50,8 @@ export class AppComponent {
         this.cdr.detectChanges();
       
         // After the DOM is updated, take the screenshot
-        const scale = window.matchMedia('(max-width: 767px)').matches ? 2 : 1;
+        // const scale = window.matchMedia('(max-width: 767px)').matches ? 2 : 1;
+        const scale = 1;
         html2canvas(this.memeElement.nativeElement, { scale }).then(canvas => {
           const dataURL = canvas.toDataURL('image/png');
           const downloadLink = document.createElement('a');

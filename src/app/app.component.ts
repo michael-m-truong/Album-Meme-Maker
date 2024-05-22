@@ -26,6 +26,15 @@ export class AppComponent {
         reader.readAsDataURL(file);
     }
 
+    handleFileChange(event: any) {
+        const file: File = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.imageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
     scalable: any = true;
    keepRatio: any = true;
     throttleScale: any = 0;

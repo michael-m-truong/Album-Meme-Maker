@@ -1,13 +1,12 @@
-<div class="root">
-    <div class="container">
-        <!-- Replace the <div> with an <input type="file"> -->
-        <input type="file" (change)="onFileSelected($event)" accept="image/*">
-        
-        <!-- Display the uploaded image -->
-        <img [src]="imageUrl" alt="Uploaded Image" #targetRef [ngClass]="{'overlay-image': imageUrl}">
-        
-        <!-- Moveable component -->
-        <ngx-moveable
+<div class="container">
+    <h1>Image Overlay App</h1>
+    <input type="file" accept="image/*" (change)="handleFileChange($event)">
+    <br>
+    <!-- <button (click)="downloadMeme()">Download Image</button> -->
+    <br>
+    <div id="meme" #meme class="image-container">
+      <img class="base-image" src="assets/background.png" alt="background">
+      <ngx-moveable
             [target]="targetRef"
            [draggable]="draggable"
            [throttleDrag]="throttleDrag"
@@ -25,5 +24,8 @@
             (scale)="onScale($event)"
             (rotate)="onRotate($event)"
         ></ngx-moveable>
+        <img [src]="imageUrl" alt="Uploaded Image" #targetRef [ngClass]="{'overlay-image': imageUrl}">
+      <img class="foreground-image" src="assets/foreground.png" alt="foreground">
     </div>
-</div>
+  </div>
+  

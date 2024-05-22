@@ -1,28 +1,29 @@
-<div class="container">
-    <h1>Image Overlay App</h1>
-    <input type="file" accept="image/*" (change)="handleFileChange($event)">
-    <br>
-    <button (click)="downloadMeme()">Download Image</button>
-    <br>
-    <div id="meme" #meme class="image-container">
-      <img class="base-image" src="assets/background.png" alt="background">
-      <ngx-moveable
-        *ngIf="uploadedImg"
-        [target]="overlayImageElement.nativeElement"
-        [draggable]="true"
-        [resizable]="true"
-        [keepRatio]="true"
-        [origin]="true"
-        [edge]="false"
-        (dragStart)="onDragStart($event)"
-        (drag)="onDrag($event)"
-        (dragEnd)="onDragEnd($event)"
-        (resizeStart)="onResizeStart($event)"
-        (resize)="onResize($event)"
-        (resizeEnd)="onResizeEnd($event)">
-      </ngx-moveable>
-      <img #overlayImage [src]="uploadedImg" alt="uploaded" class="overlay-image">
-      <img class="foreground-image" src="assets/foreground.png" alt="foreground">
+<div class="root">
+    <div class="container">
+        <!-- Replace the <div> with an <input type="file"> -->
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        
+        <!-- Display the uploaded image -->
+        <img [src]="imageUrl" alt="Uploaded Image" #targetRef [ngClass]="{'overlay-image': imageUrl}">
+        
+        <!-- Moveable component -->
+        <ngx-moveable
+            [target]="targetRef"
+           [draggable]="draggable"
+           [throttleDrag]="throttleDrag"
+           [edgeDraggable]="edgeDraggable"
+          [startDragRotate]="startDragRotate"
+            [throttleDragRotate]="throttleDragRotate"
+           [scalable]="scalable"
+           [keepRatio]="keepRatio"
+            [throttleScale]="throttleScale"
+            [renderDirections]="renderDirections"
+            [rotatable]="rotatable"
+            [throttleRotate]="throttleRotate"
+            [rotationPosition]="rotationPosition"
+           (drag)="onDrag($event)"
+            (scale)="onScale($event)"
+            (rotate)="onRotate($event)"
+        ></ngx-moveable>
     </div>
-  </div>
-  
+</div>

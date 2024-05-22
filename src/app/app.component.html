@@ -2,11 +2,15 @@
     <h1>Image Overlay App</h1>
     <input type="file" accept="image/*" (change)="handleFileChange($event)">
     <br>
-    <!-- <button (click)="downloadMeme()">Download Image</button> -->
+    <button (click)="downloadMeme()">Download Image</button>
     <br>
+    <br>
+  <button (click)="toggleMoveable()">Toggle Moveable</button>
+  <br>
     <div id="meme" #meme class="image-container">
       <img class="base-image" src="assets/background.png" alt="background">
       <ngx-moveable
+      *ngIf="moveableVisible && imageUrl"
             [target]="targetRef"
            [draggable]="draggable"
            [throttleDrag]="throttleDrag"
